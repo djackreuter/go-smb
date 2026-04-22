@@ -1532,7 +1532,6 @@ func gmtToFiletime(gmtToken string) (uint64, error) {
 		return 0, err
 	}
 
-	return uint64(t.UTC().UnixNano()/100) + 116444736000000000, nil
 	epoch := time.Date(1601, 1, 1, 0, 0, 0, 0, time.UTC)
 
 	return uint64(t.Sub(epoch).Nanoseconds() / 100), nil
@@ -1623,9 +1622,6 @@ func (s *Session) NewCreateReq(share, name string,
 		createContextsLength = uint32(len(twrpCtx))
 		buf = append(buf, twrpCtx...)
 	}
-
-	log.Debugf("name=%q nameLen=%d cco=%d ccl=%d bufLen=%d\n",
-		name, nameLen, createContextsOffset, createContextsLength, len(buf))
 
 	return CreateReq{
 		Header:               header,
