@@ -1623,12 +1623,12 @@ func (s *Session) NewCreateReq(share, name string,
 		createContextsLength = uint32(len(twrpCtx))
 		buf = append(buf, twrpCtx...)
 	}
-	fmt.Printf("name=%q\n", name)
-	fmt.Printf("nameLen=%d\n", nameLen)
-	fmt.Printf("createContextsOffset=%d\n", createContextsOffset)
-	fmt.Printf("createContextsLength=%d\n", createContextsLength)
-	fmt.Printf("bufLen=%d\n", len(buf))
-	fmt.Printf("twrp? %v\n", twrpCtx != nil)
+	// fmt.Printf("name=%q\n", name)
+	// fmt.Printf("nameLen=%d\n", nameLen)
+	// fmt.Printf("createContextsOffset=%d\n", createContextsOffset)
+	// fmt.Printf("createContextsLength=%d\n", createContextsLength)
+	// fmt.Printf("bufLen=%d\n", len(buf))
+	// fmt.Printf("twrp? %v\n", twrpCtx != nil)
 
 	return CreateReq{
 		Header:               header,
