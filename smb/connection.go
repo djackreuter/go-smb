@@ -528,6 +528,8 @@ func (c *Connection) send(req interface{}) (rr *requestResponse, err error) {
 		return nil, err
 	}
 
+	// fmt.Printf("CREATE REQUEST raw (%d bytes): %x\n", len(buf), buf)
+
 	rr, err = c.makeRequestResponse(buf)
 	if err != nil {
 		log.Debugln(err)
