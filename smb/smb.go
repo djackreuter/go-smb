@@ -1532,9 +1532,10 @@ func gmtToFiletime(gmtToken string) (uint64, error) {
 		return 0, err
 	}
 
-	epoch := time.Date(1601, 1, 1, 0, 0, 0, 0, time.UTC)
+	epoch := 116444736000000000
+	filetime := uint64(t.UnixNano()/100) + uint64(epoch)
 
-	return uint64(t.Sub(epoch).Nanoseconds() / 100), nil
+	return filetime, nil
 }
 
 func buildTWrpContext(filetime uint64) []byte {
@@ -1580,7 +1581,7 @@ func (s *Session) NewCreateReq(share, name string,
 	var gmtToken string
 
 	if strings.HasPrefix(name, "@GMT-") {
-		parts := strings.SplitN(name, "\\", 2)
+		parts := strings.SplitN(name, `\`, 2)
 		gmtToken = parts[0]
 		if len(parts) > 1 {
 			name = parts[1]
@@ -1622,6 +1623,12 @@ func (s *Session) NewCreateReq(share, name string,
 		createContextsLength = uint32(len(twrpCtx))
 		buf = append(buf, twrpCtx...)
 	}
+	fmt.Printf("name=%q\n", name)
+	fmt.Printf("nameLen=%d\n", nameLen)
+	fmt.Printf("createContextsOffset=%d\n", createContextsOffset)
+	fmt.Printf("createContextsLength=%d\n", createContextsLength)
+	fmt.Printf("bufLen=%d\n", len(buf))
+	fmt.Printf("twrp? %v\n", twrpCtx != nil)
 
 	return CreateReq{
 		Header:               header,
